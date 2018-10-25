@@ -1,10 +1,9 @@
 {
-  "name": "api-console-server",
+  "name": "parkd-screenshot-service",
   "version": "1.0.0",
   "description": "",
-  "main": "starter.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node convert.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
