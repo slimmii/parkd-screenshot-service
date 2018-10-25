@@ -1,0 +1,22 @@
+/*==================================================================
+// ANDROID SPECIFIC STYLES
+/*=================================================================*/
+
+#inner-shadow, .app-screen{
+    position: absolute;
+    top: 252px;
+    left: 50%; 
+    margin-left: -160px; /* (320 / 2) */
+    width: 320px;
+}
+
+#inner-shadow{
+    z-index: 90; 
+    height: 700px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,.1);
+}
+
+.app-screen{
+    z-index: 80;
+    height: auto;
+}

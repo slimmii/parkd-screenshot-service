@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Awesome App Mockup Builder Machine</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+
+<body>
+
+  <div id="mockup">
+    <div id="header">
+      <h1 id="dynamicTitle">This is a beautiful placeholder title.</h1>
+    </div>
+    <div>
+      <img id="device" src="img/ios.png" />
+      <div id="inner-shadow"></div>
+      <img id="pathImage" class="app-screen" src="app_screen_placeholder" alt="image placeholder" />
+    </div>
+  </div>
+    
+
+
+<script>
+
+  //============================================================================================
+
+  window.onload=function() {
+
+    var filePath = getUrlParameter('filePath');
+    var title = getUrlParameter('title');
+    var device = getUrlParameter('device');
+
+    if(filePath && title && device) {
+      addStylesheet(device);
+      document.getElementById("device").src = 'img/' + device + '.png';
+      document.getElementById("pathImage").src = filePath;
+      document.getElementById("dynamicTitle").innerText = title;
+    }
+    else {
+      console.log('ERROR: NOT ALL QUERY PARAMS WHERE PROVIDED CORRECTLY.');
+    }
+
+  //============================================================================================
+
+    function getUrlParameter(sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : sParameterName[1];
+          }
+      }
+    };
+
+  //============================================================================================
+
+    function addStylesheet(device) {
+      var head = document.head;
+      var link = document.createElement("link");
+      link.type = "text/css";
+      link.rel = "stylesheet";
+      link.href = "css/" + device + '.css';
+      head.appendChild(link);
+    }
+
+  //============================================================================================
+
+  }    
+
+</script>
+
+</body>
+</html>

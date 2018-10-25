@@ -1,0 +1,27 @@
+{
+  "name": "api-console-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "starter.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-json-validator-middleware": "^1.2.3",
+    "finalhandler": "1.1.1",
+    "fs": "0.0.1-security",
+    "phantom": "6.0.3",
+    "serve-static": "1.13.2",
+    "system": "2.0.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "1.7.0",
+    "babel-register": "6.26.0"
+  }
+}
