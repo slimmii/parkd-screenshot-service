@@ -5,18 +5,69 @@ const http = require('http');
 const fs = require('fs');
 const finalhandler = require('finalhandler');
 const serveStatic = require('serve-static');
+const commandLineArgs = require('command-line-args');
+const commandLineUsage = require('command-line-usage')
 
 
-if (process.argv.length !== 6) {
-    console.log("Usage: phantomjs export.js screenshot_dir output_dir mapping_file template)");
-    return;
+const sections = [
+    {
+        header: 'Screenshot App',
+        content: 'Generates screenshots for the PARKD team.'
+    },
+    {
+        header: 'Options',
+        optionList: [
+            {
+                name: 'screenshotDir',
+                typeLabel: '{underline directory}',
+                description: 'Directory containing screenshots'
+            },
+            {
+                name: 'outputDir',
+                typeLabel: '{underline directory}',
+                description: 'Directory where the screenshots should be stored'
+            },
+            {
+                name: 'mappingFile',
+                typeLabel: '{underline file}',
+                description: 'The mapping file'
+            },
+            {
+                name: 'template',
+                typeLabel: '{underline ios|android}',
+                description: 'The template'
+            },
+            {
+                name: 'help',
+                description: 'Print this usage guide.'
+            }
+        ]
+    }
+]
+const usage = commandLineUsage(sections)
+
+const optionDefinitions = [
+    { name: 'help', alias: 'h'},
+    { name: 'screenshotDir', alias: 's', type: String, defaultOption: true },
+    { name: 'outputDir', alias: 'o', type: String, defaultValue: 'output' },
+    { name: 'mappingFile', alias: 'm', type: String, defaultValue: null },
+    { name: 'template', alias: 't', type: String, defaultValue: 'ios' },
+]
+
+const options = commandLineArgs(optionDefinitions);
+
+let screenshotDir = options.screenshotDir;
+let outputDir = options.outputDir;
+let mappingFile = options.mappingFile
+let template = options.template;
+
+if (!screenshotDir) {
+    console.log(usage)
+    process.exit();
 }
 
-let screenshotDir = process.argv[2];
-let outputDir = process.argv[3];
-let mappingFile = process.argv[4];
-let template = process.argv[5];
 let files = scanDirectory(screenshotDir);
+
 
 var serveScreenshots = serveStatic(screenshotDir);
 var serveResources = serveStatic('html');
@@ -36,7 +87,7 @@ resourceServer.listen(8001);
 
 
 //
-var titleMapping = JSON.parse(fs.readFileSync(mappingFile, 'utf-8'));
+var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8')) : {};
 
 async function createSnapshot(page, i) {
     var fileName = files[i];
