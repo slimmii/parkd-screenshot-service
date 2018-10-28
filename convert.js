@@ -69,7 +69,8 @@ if (!screenshotDir) {
 
 let files = scanDirectory(screenshotDir);
 
-
+var screenshotPort = 0;
+var resourcePort = 0;
 var serveScreenshots = serveStatic(screenshotDir);
 var serveResources = serveStatic('html');
 
@@ -87,7 +88,7 @@ var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8'
 async function createSnapshot(page, i) {
     var fileName = files[i];
     var title = titleMapping[fileName] || 'fleh';
-    await page.open('http://localhost:8001/index.html?filePath=http://localhost:8000/' + fileName + '&title=' + title + '&device=' + template);
+    await page.open('http://localhost:' + resourcePort + '/index.html?filePath=http://localhost:' + screenshotPort + '/' + fileName + '&title=' + title + '&device=' + template);
     await page.render(outputDir + "/" + fileName);
 
     if (i < files.length) {
@@ -119,8 +120,8 @@ async function getNextAvailablePort(min) {
 }
 
 (async function () {
-    let screenshotPort = await getNextAvailablePort(3000);
-    let resourcePort = await getNextAvailablePort(screenshotPort+1);
+    screenshotPort = await getNextAvailablePort(3000);
+    resourcePort = await getNextAvailablePort(screenshotPort+1);
 
     screenshotServer.listen(screenshotPort);
     resourceServer.listen(resourcePort);
@@ -137,7 +138,7 @@ async function getNextAvailablePort(min) {
     });
 
 
-    await createSnapshot(page, 0, 0);
+    await createSnapshot(page, 0, 0, screenshotPort, resourcePort);
 
 
     //await instance.exit();
