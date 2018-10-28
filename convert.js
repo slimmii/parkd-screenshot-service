@@ -56,7 +56,6 @@ const optionDefinitions = [
 ]
 
 const options = commandLineArgs(optionDefinitions);
-
 let screenshotDir = options.screenshotDir;
 let outputDir = options.outputDir;
 let mappingFile = options.mappingFile
@@ -72,7 +71,7 @@ let files = scanDirectory(screenshotDir);
 var screenshotPort = 0;
 var resourcePort = 0;
 var serveScreenshots = serveStatic(screenshotDir);
-var serveResources = serveStatic('html');
+var serveResources = serveStatic(__dirname + '/html');
 
 var screenshotServer = http.createServer(function (req, res) {
     var done = finalhandler(req, res);
