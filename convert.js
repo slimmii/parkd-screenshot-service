@@ -7,6 +7,7 @@ const finalhandler = require('finalhandler');
 const serveStatic = require('serve-static');
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage')
+const portscanner = require('portscanner')
 
 
 const sections = [
@@ -81,12 +82,6 @@ var resourceServer = http.createServer(function (req, res) {
     serveResources(req, res, done);
 });
 
-
-screenshotServer.listen(8000);
-resourceServer.listen(8001);
-
-
-//
 var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8')) : {};
 
 async function createSnapshot(page, i) {
@@ -114,7 +109,26 @@ function scanDirectory(path) {
     return files;
 };
 
+async function getNextAvailablePort(min) {
+    let port = await new Promise((resolve, reject) => {
+        portscanner.findAPortNotInUse(min, 4000, function (error, port) {
+            resolve(port)
+        })
+    });
+    return port;
+}
+
 (async function () {
+    let screenshotPort = await getNextAvailablePort(3000);
+    let resourcePort = await getNextAvailablePort(screenshotPort+1);
+
+    screenshotServer.listen(screenshotPort);
+    resourceServer.listen(resourcePort);
+
+    console.log('Screenshot server started on port ' + screenshotPort);
+    console.log('Resource server started on port ' + resourcePort);
+
+
     const instance = await phantom.create();
     const page = await instance.createPage();
     page.property('viewportSize', {width: 460, height: 820});
