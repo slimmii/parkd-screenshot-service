@@ -69,17 +69,41 @@ html, body{
     font-family: 'Sofia_Pro_Regular';  
     font-style: normal;
     background: #eee;
+    transform: scale(1.0);
+    transform-origin: 0 0;
 }
 
 #header{
     text-align: center;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 600;
-    padding: 1em 1em;
+    padding: 0 0.5em;
     line-height: 1.5em;
     height: 180px;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+.table-wrap{
+    display: table;
+    width: 100%;
+}
+
+.table-cell{
+    display: table-cell;
+    height: 180px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#statusbar {
+    position: absolute;
+    top: 255px;
+    left: 50%; 
+    padding: 10;
+    margin-left: -155px; /* (320 / 2) */
+    width: 310px;
+    z-index: 1000;
 }
 
 #dynamicTitle:first-letter{
