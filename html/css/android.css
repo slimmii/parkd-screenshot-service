@@ -2,33 +2,8 @@
 // ANDROID SPECIFIC STYLES
 /*=================================================================*/
 
-#inner-shadow, .app-screen{
-    position: absolute;
+#screen-content-holder{
     top: 255px;
-    left: 50%; 
-    margin-left: -165px; /* (328px / 2) + 1px extra */
+    margin-left: -165px; /* (328 / 2 ) */
     width: 328px;
-    border-radius: 1px;
-}
-
-#statusbar {
-    position: absolute;
-    top: 255px;
-    left: 50%; 
-    padding: 10;
-    -webkit-filter: invert(0%);
-    margin-left: -155px; /* (320 / 2) */
-    width: 310px;
-    z-index: 1000;
-}
-
-#inner-shadow{
-    z-index: 90; 
-    height: 700px; 
-    box-shadow: inset 0 0 10px rgba(0,0,0,.1);
-}
-
-.app-screen{
-    z-index: 80;
-    height: auto;
 }

@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <title>The Awesome App Mockup Builder Machine</title>
   <link rel="stylesheet" href="css/styles.css">
+  <!-- inject ios/android stylesheet dynamically -->
+  <!--
+    <link rel="stylesheet" href="css/android.css">
+    <link rel="stylesheet" href="css/ios.css">
+  -->
 </head>
 
  
 <body>
 
-  <div id="mockup">
+  <div id="background">
     <div id="header">
       <div class="table-wrap">
         <div class="table-cell">
@@ -18,10 +23,16 @@
       </div>
     </div>
     <div>
-      <img id="statusbar" src="img/statusbar_ios.png"/>
+
       <img id="device" src="img/ios.png" />
-      <div id="inner-shadow"></div>
-      <img id="pathImage" class="app-screen" src="app_screen_placeholder" alt="image placeholder" />
+      <div id="screen-content-holder">
+        <div id="rel">
+          <div id="inner-shadow"></div>
+          <img id="statusbar" src="img/statusbar_ios.png"/>
+          <img id="pathImage" class="screenshot-image" src="img/local_placeholder.jpg" alt="image placeholder" />
+        </div>
+      </div>
+
     </div>
   </div>
     
