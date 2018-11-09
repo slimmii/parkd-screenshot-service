@@ -86,7 +86,7 @@ var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8'
 
 async function createSnapshot(page, i) {
     var fileName = files[i];
-    var title = titleMapping[fileName] || '';
+    var title = titleMapping[fileName] || ' ';
     await page.open('http://localhost:' + resourcePort + '/index.html?filePath=http://localhost:' + screenshotPort + '/' + fileName + '&title=' + title + '&device=' + template);
     await page.render(outputDir + "/" + fileName);
 
