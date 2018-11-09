@@ -93,8 +93,20 @@ async function createSnapshot(page, i) {
     if (i < files.length) {
         await createSnapshot(page, i+1);
     } else {
+        saveHtml();
         process.exit();
     }
+}
+
+function saveHtml() {
+    console.log('saveHtml');
+    var html = [];
+    files.forEach((file) => {
+            html.push("<img src='" + file + "'/>");
+    });
+
+    console.log(html.join(""));
+    fs.writeFileSync(outputDir + "/report.html", html.join(""));
 }
 
 function scanDirectory(path) {
