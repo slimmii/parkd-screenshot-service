@@ -3,7 +3,7 @@
 /*=================================================================*/
 
 #screen-content-holder{
-    top: 252px;
-    margin-left: -160px; /* (320 / 2) */
-    width: 320px;    
+    top: 282px;
+    margin-left: -194px; /* (width / 2) */
+    width: 388px;    
 }
