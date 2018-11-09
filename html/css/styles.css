@@ -121,10 +121,6 @@ html, body{
     position: relative;
 }
 
-#scaler{
-    -webkit-transform-origin: 50% 0%;
-}
-
 #content{
     text-align: center;
 }
@@ -169,6 +165,7 @@ html, body{
 }
 
 #scaler{
+    -webkit-transform-origin: 50% 0%;
     -webkit-transform: scale(2.4); 
 }
 
