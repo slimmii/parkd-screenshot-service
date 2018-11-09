@@ -5,36 +5,40 @@
   <title>The Awesome App Mockup Builder Machine</title>
   <link rel="stylesheet" href="css/styles.css">
   <!-- inject ios/android stylesheet dynamically -->
-  <!--
+
     <link rel="stylesheet" href="css/android.css">
-  -->
-    <link rel="stylesheet" href="css/ios.css">
   
+  <!--
+  <link rel="stylesheet" href="css/ios.css">
+  -->
 </head>
 
  
 <body>
 
   <div id="background">
-    <div id="header">
-      <div class="table-wrap">
-        <div class="table-cell">
-          <h1 id="dynamicTitle">HEADER<BR>BLA</h1>
-       </div>
-      </div>
-    </div>
+    <div id="scaler">
 
-    <div id="content">
-      <img id="device" src="img/ios.svg" />
-      <div id="screen-content-holder">
-        <div id="rel">
-          <div id="inner-shadow"></div>
-          <img id="statusbar" src="img/statusbar_ios.png"/>
-          <img id="pathImage" class="screenshot-image" src="img/local_placeholder.jpg" alt="image placeholder" />
+      <div id="header">
+        <div class="table-wrap">
+          <div class="table-cell">
+            <h1 id="dynamicTitle">HEADER<BR>BLA</h1>
+        </div>
         </div>
       </div>
-    </div>
 
+      <div id="content">
+        <img id="device" src="img/android.svg" />
+        <div id="screen-content-holder">
+          <div id="rel">
+            <div id="inner-shadow"></div>
+            <img id="statusbar" src="img/statusbar_android.png"/>
+            <img id="pathImage" class="screenshot-image" src="img/local_placeholder.jpg" alt="image placeholder" />
+          </div>
+        </div>
+      </div>
+
+      </div>
   </div>
     
 
@@ -51,7 +55,7 @@
 
     if(filePath && title && device) {
       addStylesheet(device);
-      document.getElementById("device").src = 'img/' + device + '.png';
+      document.getElementById("device").src = 'img/' + device + '.svg';
       document.getElementById("statusbar").src = 'img/statusbar_' + device + '.png';
       document.getElementById("pathImage").src = filePath;
       document.getElementById("dynamicTitle").innerText = title;

@@ -1,9 +1,10 @@
 /*==================================================================
 // ANDROID SPECIFIC STYLES
 /*=================================================================*/
+/* adjust to fit inside phone graphic screen */
 
 #screen-content-holder{
-    top: 255px;
-    margin-left: -165px; /* (328 / 2 ) */
-    width: 328px;
+    top: 292px;
+    margin-left: -199px; /* (width / 2 ) */
+    width: 398px;
 }

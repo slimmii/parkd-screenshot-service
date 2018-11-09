@@ -107,25 +107,36 @@ html, body{
 #background{
     position: relative;
     background-image: linear-gradient(#3194FE, #3fd28e);
-    /*background: #3194FE;*/
     color: #fff;
+    /*
     width: 100%; 
     height: 820px;
+    */
     overflow: hidden;
+    width: 1242px;
+    height: 2208px;
 }
 
 #rel{
     position: relative;
 }
 
+#scaler{
+    -webkit-transform-origin: 50% 0%;
+}
+
 #content{
     text-align: center;
+}
+
+#device{
+    width: 448px;
+    height: auto;
 }
 
 #screen-content-holder{
     position: absolute;
     left: 50%;
-    height: 700px;
     background: #000;
 }
 
@@ -146,6 +157,24 @@ html, body{
 #inner-shadow{
     position: absolute;
     width: 100%;
-    height: 700px; 
     box-shadow: inset 0 0 10px rgba(0,0,0,.1);
 }
+
+/*=======================================================*/
+/* ADJUST FOR DIFFERENT SIZES */
+/*=======================================================*/
+
+#screen-content-holder, #inner-shadow {
+    height: 700px;
+}
+
+#scaler{
+    -webkit-transform: scale(2.4); 
+}
+
+
+/* 
+
+change scale to fit the sizing of phone and text
+
+*/
