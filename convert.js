@@ -86,7 +86,7 @@ var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8'
 
 async function createSnapshot(page, i) {
     var fileName = files[i];
-    var title = titleMapping[fileName] || 'fleh';
+    var title = titleMapping[fileName] || '';
     await page.open('http://localhost:' + resourcePort + '/index.html?filePath=http://localhost:' + screenshotPort + '/' + fileName + '&title=' + title + '&device=' + template);
     await page.render(outputDir + "/" + fileName);
 
@@ -102,7 +102,7 @@ function saveHtml() {
     console.log('saveHtml');
     var html = [];
     files.forEach((file) => {
-            html.push("<img src='" + file + "'/>");
+            html.push("<img height='50%'  src='" + file + "'/>");
     });
 
     console.log(html.join(""));
