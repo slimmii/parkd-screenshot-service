@@ -143,7 +143,7 @@ async function getNextAvailablePort(min) {
 
     const instance = await phantom.create();
     const page = await instance.createPage();
-    page.property('viewportSize', {width: 1242, height: 2208});
+    page.property('viewportSize', {width: 1242, height: 2688});
     page.on('onConsoleMessage', function (msg) {
         console.log(msg);
     });
