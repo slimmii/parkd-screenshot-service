@@ -1,14 +1,15 @@
-const phantom = require('phantom');
+const captureWebsite = require('capture-website');
 const system = require('system');
 const http = require('http');
-
+const path = require('path');
+const url = require('url');
 const fs = require('fs');
-const finalhandler = require('finalhandler');
-const serveStatic = require('serve-static');
+const express = require('express');
+const isBinaryFileSync = require("isbinaryfile").isBinaryFileSync;
+
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage')
 const portscanner = require('portscanner')
-
 
 const sections = [
     {
@@ -35,7 +36,7 @@ const sections = [
             },
             {
                 name: 'template',
-                typeLabel: '{underline ios|android}',
+                typeLabel: '{underline iphone|iphonex|google-pixel2|galaxy-s8}',
                 description: 'The template'
             },
             {
@@ -52,14 +53,25 @@ const optionDefinitions = [
     { name: 'screenshotDir', alias: 's', type: String, defaultOption: true },
     { name: 'outputDir', alias: 'o', type: String, defaultValue: 'output' },
     { name: 'mappingFile', alias: 'm', type: String, defaultValue: null },
-    { name: 'template', alias: 't', type: String, defaultValue: 'ios' },
+    { name: 'template', alias: 't', type: String, defaultValue: 'galaxy-s8' },
 ]
 
 const options = commandLineArgs(optionDefinitions);
 let screenshotDir = options.screenshotDir;
 let outputDir = options.outputDir;
-let mappingFile = options.mappingFile
+let mappingFile = options.mappingFile;
 let template = options.template;
+let width = 1242;
+let height = 2208;
+if (template === 'iphonex') {
+    width = 1242;
+    height = 2688;
+}
+if (template === 'iphone') {
+    width = 1242;
+    height = 2208;
+}
+
 
 if (!screenshotDir) {
     console.log(usage)
@@ -70,28 +82,55 @@ let files = scanDirectory(screenshotDir);
 
 var screenshotPort = 0;
 var resourcePort = 0;
-var serveScreenshots = serveStatic(screenshotDir);
-var serveResources = serveStatic(__dirname + '/html');
 
-var screenshotServer = http.createServer(function (req, res) {
-    var done = finalhandler(req, res);
-    serveScreenshots(req, res, done);
-});
-var resourceServer = http.createServer(function (req, res) {
-    var done = finalhandler(req, res);
-    serveResources(req, res, done);
+var screenshotServer = express();
+screenshotServer.use(express.static(screenshotDir));
+var resourceServer = express();
+
+resourceServer.get('*', function(req, res) {
+    var filename = __dirname + '/html' + url.parse(req.url).pathname;
+    try {
+        if (fs.existsSync(filename)) {
+            let isBinary = isBinaryFileSync(filename);
+            if (isBinary) {
+                res.sendFile(filename)
+            }
+            if (!isBinary) {
+                let data = fs.readFileSync(filename, "utf8");
+                if (data) {
+                    Object.keys(req.query).forEach((key) => {
+                       data = data.replace('__' + key + '__', req.query[key]);
+                    });
+                    res.end(data.toString());
+                } else {
+                    res.sendFile(filename)
+                }
+            }
+        } else {
+            res.sendStatus(404);
+        }
+
+    } catch(err) {
+        res.sendStatus(500);
+    }
 });
 
 var titleMapping = mappingFile ? JSON.parse(fs.readFileSync(mappingFile, 'utf-8')) : {};
 
-async function createSnapshot(page, i) {
+async function createSnapshot(i) {
     var fileName = files[i];
     var title = titleMapping[fileName] || ' ';
-    await page.open('http://localhost:' + resourcePort + '/index.html?filePath=http://localhost:' + screenshotPort + '/' + fileName + '&title=' + title + '&device=' + template);
-    await page.render(outputDir + "/" + fileName);
+
+    console.log('http://localhost:' + screenshotPort + '/' + fileName);
+
+    await captureWebsite.file(
+        'http://localhost:' + resourcePort + '/index.' + template + '.html?filePath=http://localhost:' + screenshotPort + '/' + fileName + '&title=' + title,
+        outputDir + "/" + fileName,
+        {overwrite: true, width:width , height: height, scaleFactor: 1 }
+        );
 
     if (i < files.length) {
-        await createSnapshot(page, i+1);
+        await createSnapshot(i+1);
     } else {
         saveHtml();
         process.exit();
@@ -99,7 +138,6 @@ async function createSnapshot(page, i) {
 }
 
 function saveHtml() {
-    console.log('saveHtml');
     var html = [];
     files.forEach((file) => {
             html.push("<img height='50%'  src='" + file + "'/>");
@@ -140,16 +178,7 @@ async function getNextAvailablePort(min) {
     console.log('Screenshot server started on port ' + screenshotPort);
     console.log('Resource server started on port ' + resourcePort);
 
-
-    const instance = await phantom.create();
-    const page = await instance.createPage();
-    page.property('viewportSize', {width: 1242, height: 2688});
-    page.on('onConsoleMessage', function (msg) {
-        console.log(msg);
-    });
-
-
-    await createSnapshot(page, 0, 0, screenshotPort, resourcePort);
+    await createSnapshot(0);
 
 
     //await instance.exit();

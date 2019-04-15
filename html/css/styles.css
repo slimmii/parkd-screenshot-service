@@ -28,8 +28,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -40,7 +40,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -70,16 +70,18 @@ table {
 ===========================================================*/
 
 html, body{
-    font-family: 'Sofia_Pro_Regular';  
+    font-family: 'Sofia_Pro_Regular';
     font-style: normal;
     background: #eee;
     transform: scale(1.0);
     transform-origin: 0 0;
 }
 
+
 #header{
     text-align: center;
-    font-size: 32px;
+    margin-top: 100px;
+    font-size: 64px;
     font-weight: 600;
     padding: 0 0.5em;
     line-height: 1.5em;
@@ -104,73 +106,8 @@ html, body{
     text-transform: capitalize;
 }
 
-#background{
-    position: relative;
-    background-image: linear-gradient(#3194FE, #3fd28e);
-    color: #fff;
-    /*
-    width: 100%; 
-    height: 820px;
-    */
-    overflow: hidden;
-    width: 1242px;
-    height: 2688px;
-}
 
-#rel{
-    position: relative;
-}
-
-#content{
-    text-align: center;
-}
-
-#device{
-    width: 448px;
-    height: auto;
-}
-
-#screen-content-holder{
-    position: absolute;
-    left: 50%;
-    background: #000;
-}
-
-#statusbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    box-sizing: border-box;
-}
-
-.screenshot-image{
-    width: 100%;
-    height: auto;
-}
-
-#inner-shadow{
-    position: absolute;
-    width: 100%;
-    box-shadow: inset 0 0 10px rgba(0,0,0,.1);
-}
-
-/*=======================================================*/
-/* ADJUST FOR DIFFERENT SIZES */
-/*=======================================================*/
-
-#screen-content-holder, #inner-shadow {
-    height: 700px;
-}
-
-#scaler{
-    -webkit-transform-origin: 50% 0%;
-    -webkit-transform: scale(2.4); 
-}
-
-
-/* 
+/*
 
 change scale to fit the sizing of phone and text
 

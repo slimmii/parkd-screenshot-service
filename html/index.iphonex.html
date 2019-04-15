@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/devices.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+
+        #background{
+            position: relative;
+            background-image: linear-gradient(#3194FE, #3fd28e);
+            color: #fff;
+            overflow: hidden;
+            width: 1242px;
+            height: 2688px;
+        }
+
+        .scaled {
+            position: absolute;
+            bottom: 760px;
+            left: 400px;
+            transform: scale(2.5); /* Equal to scaleX(2) scaleY(0.5) */
+        }
+
+    </style>
+</head>
+<body>
+<div id="background">
+    <div id="header">
+        <div class="table-wrap">
+            <div class="table-cell">
+                <h1 id="dynamicTitle">__title__</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="scaled">
+        <div id="content" class="section section-device">
+            <div id="iphone-x" class="container grid-xl text-center">
+                <div class="columns">
+                    <div class="column col-12">
+                        <div class="device device-iphone-x">
+                            <div class="device-frame">
+                                <img id="pathImage" class="device-content" src="__filePath__">
+                            </div>
+                            <div class="device-stripe"></div>
+                            <div class="device-header"></div>
+                            <div class="device-sensors"></div>
+                            <div class="device-btns"></div>
+                            <div class="device-power"></div>
+                            <div class="device-home"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
