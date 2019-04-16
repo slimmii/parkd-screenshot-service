@@ -61,6 +61,8 @@ let screenshotDir = options.screenshotDir;
 let outputDir = options.outputDir;
 fs.ensureDirSync(outputDir);
 
+console.log('Screenshot service tool');
+
 let mappingFile = options.mappingFile;
 let template = options.template;
 let width = 1242;
