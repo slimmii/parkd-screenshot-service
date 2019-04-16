@@ -3,9 +3,9 @@ const system = require('system');
 const http = require('http');
 const path = require('path');
 const url = require('url');
-const fs = require('fs');
 const express = require('express');
 const isBinaryFileSync = require("isbinaryfile").isBinaryFileSync;
+const fs = require('fs-extra');
 
 const commandLineArgs = require('command-line-args');
 const commandLineUsage = require('command-line-usage')
@@ -59,6 +59,8 @@ const optionDefinitions = [
 const options = commandLineArgs(optionDefinitions);
 let screenshotDir = options.screenshotDir;
 let outputDir = options.outputDir;
+fs.ensureDirSync(outputDir);
+
 let mappingFile = options.mappingFile;
 let template = options.template;
 let width = 1242;

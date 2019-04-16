@@ -19,6 +19,7 @@
     "express-json-validator-middleware": "^1.2.3",
     "finalhandler": "1.1.1",
     "fs": "0.0.1-security",
+    "fs-extra": "7.0.1",
     "isbinaryfile": "4.0.0",
     "path": "0.12.7",
     "phantom": "6.0.3",
