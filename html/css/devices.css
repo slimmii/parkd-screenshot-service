@@ -24,7 +24,7 @@
   background-position: center center;
   background-size: cover;
   object-position: 0% 0%;
-  object-fit: cover;
+  object-fit: contain;
   position: relative;
 }
 
